@@ -1,0 +1,36 @@
+﻿@model HelpDesk.ViewModel.RoleViewModel
+@{
+    ViewData["Title"] = "Create Roles";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Role Info</h4>
+                <p class="card-category">Create  Role</p>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Roles" asp-action="Create" role="form" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Role Name</label>
+                                <input type="text" class="form-control" asp-for="RoleName">
+                                <span asp-validation-for="RoleName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Create</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+

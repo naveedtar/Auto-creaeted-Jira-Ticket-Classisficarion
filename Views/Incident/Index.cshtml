@@ -1,0 +1,302 @@
+﻿@model IEnumerable<HelpDesk.ViewModel.IncidentViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <div class="filter">
+                    <div class="filter-segment" id="sort-filter">
+                        <h4 class="card-title">Sort</h4>
+                        <div class="dd-container">
+                            <div class="dd-select option-btn-1">
+                                <a class="dd-selected d-flex justify-content-between">
+                                    <label class="dd-selected-text"><i class="fa fa-arrow-down" aria-hidden="true" style="font-size: x-small;"></i> Updated</label>
+                                    <span class="fas fa-caret-right" style="color: #3C4858; padding-top: 7px;"></span>
+                                </a>
+                            </div>
+                            <ul class="dd-options option-show-1">
+                                <li><a href="#" class="dd-option"><i class="fa fa-arrow-down" aria-hidden="true" style="font-size: x-small;"></i> Created</a></li>
+                                <li><a href="#" class="dd-option dd-option-selected"><i class="fa fa-arrow-down" aria-hidden="true" style="font-size: x-small;"></i> Updated</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-segment" id="sort-filter">
+                        <h4 class="card-title">Platform/Product</h4>
+                        <div class="dd-container">
+                            <div class="dd-select dd-select1 option-btn-2">
+                                <a class="dd-selected d-flex justify-content-between">
+                                    <label class="dd-selected-text"><i class="fa fa-arrow-down" aria-hidden="true" style="font-size: x-small;"></i> All</label>
+                                    <span class="fas fa-caret-right" style="color: #3C4858; padding-top: 7px;"></span>
+                                </a>
+                            </div>
+                            <ul class="dd-options dd-options1 label-margin option-show-2">
+                                <div class="input-group no-border justify-content-around px-1">
+                                    <input type="text" value="" class="form-control" placeholder="Search...">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                                <li><a href="#"><label class="dd-option"><input type="checkbox" value="multiselect-all" checked>  Select all</label></a></li>
+                                <li><a href="#"><label class="dd-option"><input type="checkbox" checked>  ASP.NET Core - EJ 2</label></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-segment" id="sort-filter">
+                        <h4 class="card-title">Status</h4>
+                        <div class="dd-container">
+                            <div class="dd-select dd-select2 option-btn-3">
+                                <a class="dd-selected d-flex justify-content-between">
+                                    <label class="dd-selected-text"><i class="fa fa-arrow-down" aria-hidden="true" style="font-size: x-small;"></i> Open</label>
+                                    <span class="fas fa-caret-right" style="color: #3C4858; padding-top: 7px;"></span>
+                                </a>
+                            </div>
+                            <ul class="dd-options dd-options2 label-margin option-show-3">
+                                <li><a href="#"><label class="dd-option"><input type="checkbox" value="multiselect-all">  Select all</label></a></li>
+                                <li><a href="#"><label class="dd-option"><input type="checkbox" value="multiselect-all" checked>  Open</label></a></li>
+                                <li><a href="#"><label class="dd-option"><input type="checkbox" value="multiselect-all">  Closed</label></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-segment" id="sort-filter">
+                        <h4 class="card-title">Others</h4>
+                        <div class="dd-container">
+                            <div class="dd-select option-btn-4">
+                                <a class="dd-selected d-flex justify-content-between">
+                                    <label class="dd-selected-text"> <i class="fa fa-filter" aria-hidden="true" style="font-size: smaller;"></i> More Filter</label>
+                                    <span class="fas fa-caret-right" style="color: #3C4858; padding-top: 7px;"></span>
+                                </a>
+                            </div>
+                            <div id="filterBy" class="option-show-4">
+                                <div id="reset">
+                                    <div class="reset" title="Reset"></div>
+                                </div>
+                                <div class="more_filters content-medium" style="border-bottom: 1px solid #000;">More Filters</div>
+                                <table class="filter-bottom" style="display: block;">
+                                    <tbody>
+                                        <tr class="productVersion1">
+                                            <td>
+                                                <div class="name content-extra-medium">Product Version</div>
+                                            </td>
+                                            <td>
+                                                <div class="items" id="ProductVersionId">
+                                                    <select name="ProductVersion" class="content-big" data-live-search="true" data-selected-text-format="count>1" id="ProductVersionList" multiple="multiple" style="display: none;">
+                                                        <option value="19.2.0.56">19.2.0.56</option>
+                                                        <option value="19.2.0.51">19.2.0.51</option>
+                                                    </select>
+                                                    <div class="btn-group" style="width: 10.5rem;">
+                                                        <button type="button" class="multiselect dropdown-toggle btn btn-default others-btn-1" data-toggle="dropdown" style="width: 10.5rem;">All <b class="caret"></b></button>
+                                                        <ul class="multiselect-container dropdown-menu others-show-1" style="max-height: 200px; overflow: hidden auto;">
+                                                            <li class="multiselect-item filter active" value="0">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" placeholder="Search" />
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="multiselect-item multiselect-all active">
+                                                                <a href="javascript:void(0);" class="multiselect-all">
+                                                                    <label class="checkbox"><input type="checkbox" value="multiselect-all" /> Select all</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="19.2.0.56" /> 19.2.0.56</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="19.2.0.51" /> 19.2.0.51</label>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="controlName1">
+                                            <td>
+                                                <div class="name content-extra-medium">Control/Module</div>
+                                            </td>
+                                            <td>
+                                                <div class="items multiselect-label-list" id="controllist_list_width">
+                                                    <select name="Control" class="content-big" data-live-search="true" data-selected-text-format="count>1" id="ControlList" multiple="multiple" style="display: none;">
+                                                        <option value="DataGrid">DataGrid</option>
+                                                        <option value="Toast">Toast</option>
+                                                    </select>
+                                                    <div class="btn-group" style="width: 10.5rem;">
+                                                        <button type="button" class="multiselect dropdown-toggle btn btn-default others-btn-2" data-toggle="dropdown" style="width: 10.5rem;">All <b class="caret"></b></button>
+                                                        <ul class="multiselect-container dropdown-menu others-show-2" style="max-height: 200px; overflow: hidden auto;">
+                                                            <li class="multiselect-item filter active" value="0">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" placeholder="Search" />
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="multiselect-item multiselect-all active">
+                                                                <a href="javascript:void(0);" class="multiselect-all">
+                                                                    <label class="checkbox"><input type="checkbox" value="multiselect-all" /> Select all</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="DataGrid" /> DataGrid</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="Toast" /> Toast</label>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="datepicker1">
+                                            <td>
+                                                <div class="name content-extra-medium">Date</div>
+                                            </td>
+                                            <td>
+                                                <div class="items">
+                                                    <label class="date_lable content-small" for="From" style="margin-right: 1em;">From</label>
+
+                                                    <span class="e-datewidget e-widget e-ntouch e-valid" aria-invalid="false">
+                                                        <span class="e-in-wrap e-box e-padding">
+                                                            <input id="startdate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" name="startdate" placeholder="Select date" />
+                                                            <span id="startdate-img" class="e-select" style="display: block;"><span class="e-icon e-calendar" aria-label="Select"></span></span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="datepicker2">
+                                            <td></td>
+                                            <td>
+                                                <div class="items">
+                                                    <label class="date_lable content-small" for="To" style="margin-right:1em;">To</label>
+
+                                                    <span class="e-datewidget e-widget e-ntouch e-valid" aria-invalid="false">
+                                                        <span class="e-in-wrap e-box e-padding">
+                                                            <input id="enddate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" name="enddate" placeholder="Select date" />
+                                                            <span id="enddate-img" class="e-select" style="display: block;"><span class="e-icon e-calendar" aria-label="Select"></span></span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="incidentSearch">
+                                            <td>
+                                                <div class="name content-extra-medium">Incident ID</div>
+                                            </td>
+                                            <td>
+                                                <div class="items multiselect-label-list" id="IncidentList_list_width">
+                                                    <select name="IncidentList" class="content-big" data-live-search="true" data-selected-text-format="count>1" id="IncidentList" multiple="multiple" style="display: none;">
+                                                        <option value="340006">340006</option>
+                                                        <option value="340005">340005</option>
+                                                        <option value="339998">339998</option>
+                                                    </select>
+                                                    <div class="btn-group" style="width: 10.5rem;">
+                                                        <button type="button" class="multiselect dropdown-toggle btn btn-default others-btn-3" data-toggle="dropdown" style="width: 10.5rem;">All <b class="caret"></b></button>
+                                                        <ul class="multiselect-container dropdown-menu others-show-3" style="max-height: 200px; overflow: hidden auto;">
+                                                            <li class="multiselect-item filter active" value="0">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" placeholder="Search" />
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default multiselect-clear-filter" type="button">All <b class="caret"></b></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="multiselect-item multiselect-all active">
+                                                                <a href="javascript:void(0);" class="multiselect-all">
+                                                                    <label class="checkbox"><input type="checkbox" value="multiselect-all" /> Select all</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="340006" /> 340006</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="340005" /> 340005</label>
+                                                                </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="javascript:void(0);">
+                                                                    <label class="checkbox"><input type="checkbox" value="339998" /> 339998</label>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-segment responsive-filter justify-content-end align-items-center" style="border: 1px solid #eee; border-radius: 4px;" id="sort-filter">
+                    <h4 class="card-title mr-3" style="margin-bottom: 0 !important; padding: 0 !important;">INCIDENTS</h4> <i class="fa fa-filter" aria-hidden="true" style="font-size: larger;"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="incident-result">
+                    @foreach (var item in Model)
+                    {
+                <div class="row px-2 incidents">
+                    <div class="col-lg-8">
+                        <div class="content-items">
+                            <a href="#" style="color: unset;">
+                                <div class="content-header"><h5>@item.IncidentDescription</h5></div>
+                                <div class="content-text">
+                                    <div class="name"><span>Project Name</span>: @item.ProjectName</div>
+                                    <div class="name"> | </div>
+                                    <div class="name"><span>Category</span>: @item.Categories</div>
+                                    <div class="name"> | </div>
+                                    <div class="name"><span>Priority</span>: @item.PriorityLevel</div>
+                                </div>
+                                <div class="content-creator">
+                                    <div><span class="inner-grid-list">Created by</span>: @item.CreatedBy on  <b>@item.CreatedDateDisplay</b></div>
+
+                                 
+                                    @if (String.IsNullOrEmpty(@item.LatestRepliedBy))
+                                    {
+                                        @String.Empty
+                                    }
+                                    else
+                                    {
+                                        <div><span class="inner-grid-list">Last replied by</span>: @item.LatestRepliedBy on  <b>@item.LatestRepliedDateDisplay</b></div>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="content-info">
+                            <p style="font-size: 1.0rem; font-weight: 300; margin-bottom: 0 !important;">@item.IncidentNo</p>
+                            @if (item.IncidentStatus == "OPEN")
+                            {
+                                <h2 class="open-incidents">@item.IncidentStatus</h2> }
+                                                else
+                                                {
+                                <h2 class="close-incidents">@item.IncidentStatus</h2>}
+                       
+                            <a href="#" style="font-size: 14px;color: #0555cd;">View Recent Activity</a>
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                                                            </div>
+            </div>
+        </div>
+    </div>
+</div>

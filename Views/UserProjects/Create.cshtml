@@ -1,0 +1,72 @@
+﻿@model HelpDesk.Models.UserProject
+
+@{
+    ViewData["Title"] = "Assign Project";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">User Project Info</h4>
+                <p class="card-category">Assign  Projec to @ViewBag.userName</p>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" role="form" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" class="form-control" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="ProjectId" class="control-label"></label>
+                                <select asp-for="ProjectId" asp-items="@(ViewBag.projects as List<SelectListItem>)" class="form-control">
+                                    <option>Select Project</option>
+                                </select>
+                                <span asp-validation-for="ProjectId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="CreatePermission" /> Add Permission
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="EditPermission" /> Edit Permission
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="DeletePermission" /> Delete Permission
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="ViewPermission" /> View Permission
+                                </label>
+                            </div></div>
+                        </div>
+                    <button type="submit" class="btn btn-primary pull-right">Create</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+

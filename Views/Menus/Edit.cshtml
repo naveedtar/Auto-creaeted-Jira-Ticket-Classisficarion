@@ -1,0 +1,78 @@
+﻿
+@model HelpDesk.ViewModel.MenuViewModels
+@{
+    ViewData["Title"] = "Edit Menu";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Menu Info</h4>
+                <p class="card-category">Edit  Menu</p>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Menus" asp-action="Edit" role="form" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Menu Name</label>
+                                <input type="text" class="form-control" asp-for="MenuName">
+                                <span asp-validation-for="MenuName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Menu Controller Name</label>
+                                <input type="text" class="form-control" asp-for="MenuControllerName">
+                                <span asp-validation-for="MenuControllerName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Parent Menu</label>
+                                <select type="text" class="form-control" asp-for="ParentID" asp-items="Model.MenusDD">
+                                    <option value="">Choose Parent Menu</option>
+                                </select>
+                                <span asp-validation-for="MenuControllerName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Menu Action Name</label>
+                                <input type="text" class="form-control" asp-for="MenuActionName">
+                                <span asp-validation-for="MenuActionName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Menu Order</label>
+                                <input type="number" class="form-control" asp-for="MenuOrder">
+                                <span asp-validation-for="MenuOrder" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Icon Name</label>
+                                <input type="text" class="form-control" asp-for="Icon">
+                                <span asp-validation-for="Icon" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Create</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+

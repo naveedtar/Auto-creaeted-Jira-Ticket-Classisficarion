@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HelpDesk.Models.Project>
+
+@{
+    ViewData["Title"] = "Project List";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Project List</h4>
+                <a asp-action="Create" class="pull-right btn btn-success">Create Project</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectName)
+                        </th>
+
+                        <th>
+                        </th>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Id
+                                    </td>
+                                    <td>
+                                        @item.ProjectName
+                                    </td>
+
+
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                                        <a asp-action="Delete"asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure, you want to delete it?')">Delete</a>
+                                       
+
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

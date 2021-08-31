@@ -1,0 +1,82 @@
+﻿@model IEnumerable<HelpDesk.Models.UserProject>
+
+@{
+    ViewData["Title"] = "User Project List";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">@ViewBag.userName Project List </h4>
+                <a asp-action="Create" asp-route-id="@ViewBag.UserId" class="pull-right btn btn-success">Assign Project</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Project
+                        </th>
+                        <th>
+                            Add Permission
+                        </th>
+                        <th>
+                            Edit Permission
+                        </th>
+                        <th>
+                            Delete Permission
+                        </th>
+                        <th>
+                            View Permission
+                        </th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.User?.Name
+                                    </td>
+                                    <td>
+                                        @item.Project.ProjectName
+                                    </td>
+                                    <td>
+                                        @item.CreatePermission
+                                    </td>
+                                    <td>
+                                        @item.EditPermission
+                                    </td>
+                                    <td>
+                                        @item.DeletePermission
+                                    </td>
+                                    <td>
+                                        @item.ViewPermission
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" asp-route-userId="@item.UserId" class="btn btn-danger" onclick="return confirm('Are you sure, you want to delete it?')">Delete</a>
+
+
+                                    </td>
+                                </tr>
+
+
+
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model List<HelpDesk.Model.Menu>
+@{
+    ViewData["Title"] = "Menu List";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Menu List</h4>
+                <a asp-action="Create" asp-controller="Menus" class="pull-right btn btn-success">Create Menu</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+
+                        <th>
+                            Menu Name
+                        </th>
+                        <th>
+                            Parent Menu
+                        </th>
+                        <th>
+                            Menu Action
+                        </th>
+                        <th>
+                            Menu Controller
+                        </th>
+                        <th>
+                            Menu Icon
+                        </th>
+                        <th>
+                        </th>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @item.MenuName
+                                </td>
+                                <td>
+                                    @Model.FirstOrDefault(u=>u.Id==item.ParentID)?.MenuName
+                                </td>
+                                <td>
+                                    @item.MenuActionName
+                                </td>
+                                <td>
+                                    @item.MenuControllerName
+                                </td>
+                                <td>
+                                    @item.Icon
+                                </td>
+                                <td>
+                                  
+                                    <a asp-action="Edit" asp-controller="Menus" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                                    <a asp-action="Delete" asp-controller="Menus" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure, you want to delete it?')">Delete</a>
+
+                                </td>
+                            </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
