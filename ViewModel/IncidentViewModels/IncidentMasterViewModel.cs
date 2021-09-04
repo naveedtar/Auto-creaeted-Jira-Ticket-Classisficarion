@@ -4,23 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-using HelpDesk.Models;
 
 namespace HelpDesk.ViewModel
 {
-    public class IncidentMasterViewModel
+    public class IncidentViewModel
     {
-       
-       
+        [Key]
+        public string Id { get; set; }
         public Nullable<DateTime> IncidentDate { get; set; }
         public string IncidentDateDisplay { get; set; }
+        public string HowLong { get; set; }
         public string IncidentNo { get; set; }
         public string ProjectName { get; set; }
         public string Categories { get; set; }
+        /*
+         Id	IncidentDate	IncidentDateDisplay	HowLong	IncidentNo	
+        ProjectName	Categories	PriorityLevel	IncidentDescription	CreatedBy	
+        CreatedDate	CreatedDateDisplay	IncidentStatusLUId	LatestRepliedBy	
+        LatestRepliedDate	LatestRepliedDateDisplay   LatestIncidentStatusLUId	  IncidentStatus
 
-        public int ProjectId { get; set; }
-
-
+         */
         public string PriorityLevel { get; set; }
         public string IncidentDescription { get; set; }
         public string CreatedBy { get; set; }
@@ -32,7 +35,6 @@ namespace HelpDesk.ViewModel
         public string LatestRepliedDateDisplay { get; set; }
         public Nullable<int> LatestIncidentStatusLUId { get; set; }
         public string IncidentStatus { get; set; }
-        public ICollection <IncidentProgress> IncidentProgress { get; set; }
 
     }
 }

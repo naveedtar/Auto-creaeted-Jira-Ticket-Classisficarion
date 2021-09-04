@@ -735,121 +735,64 @@ function debounce(func, wait, immediate) {
 
 // Menubar
 
-$('.sidedropdown > a').click(function(){
-  $('.option-show-1.show').slideToggle("fast").removeClass("show");
-  $('.option-show-2.show').slideToggle("fast").removeClass("show");
-  $('.option-show-3.show').slideToggle("fast").removeClass("show");
-  $('.option-show-4.show').slideToggle("fast").removeClass("show");
-  $(this).parent().siblings().find('ul').fadeOut(10);
-  $(this).next('ul').stop(true, false).fadeToggle(10);
-  return false;
-})
-$(document).click(function(){
-  $('.feat-show').css("display", "none");
-});
-
-// MenuBar
-
-// Filter
-$(document).ready(function() {
+$(document).ready(function(){
   $().ready(function() {
-    $('.option-btn-1').click(function(){
-      $('.option-show-1').slideToggle("fast").toggleClass("show");
-      $('.option-show-2.show').slideToggle("fast").removeClass("show");
-      $('.option-show-3.show').slideToggle("fast").removeClass("show");
-      $('.option-show-4.show').slideToggle("fast").removeClass("show");
-      $('.feat-show').css("display", "none");
-      // $('.first').toggleClass("rotate");
-      // $('.first1.rotate').removeClass("rotate");
-    });
+    $('.sidedropdown > a').click(function(){
+      $('.option-show-4.show').removeClass("show");
+      $(this).parent().siblings().find('ul').fadeOut(10).removeClass('a');
+      $(this).next('ul').stop(true, false, true).fadeToggle(10).toggleClass('a');
+        // If the clicked element has the active class, remove the active class from EVERY .nav-link>.state element
+        if ($(".feat-show").hasClass("a")) {
+          $(".sidebar-wrapper").addClass("show-nav", 1);
+          $(".multi_select .dropdown-menu.show").removeClass("show");
+        }
+        // Else, the element doesn't have the active class, so we remove it from every element before applying it to the element that was clicked
+        else {
+          $(".sidebar-wrapper").removeClass("show-nav", 100);
+        }
+       return false;
+     })
     $(document).click(function(){
-      $('.option-show-1.show').slideToggle("fast").removeClass("show");
-      // $('.first.rotate').removeClass("rotate");
-      // $('.first1.rotate').removeClass("rotate");
+      $('.feat-show.a').removeClass("a").css('display','none');
+      $(".sidebar-wrapper").removeClass("show-nav", 100);
     });
-    $(".option-btn-1").click(function(e){
+    $(".multi_select .dropdown-menu.show").click(function(){
+      $('.feat-show.a').removeClass("a").css('display','none');
+      $(".sidebar-wrapper").removeClass("show-nav", 100);
+      $(".multi_select .dropdown-menu.inner").addClass("show");
+    });
+    $(".multi_select .dropdown-menu").click(function(){
+      if ($(".multi_select .dropdown-menu").hasClass("show")) {
+        $(".sidebar-wrapper").removeClass("show-nav", 1);
+        $(".feat-show.a").removeClass("a");
+      }
+    });
+    $(".feat-show").click(function(e){
       e.stopPropagation();
     });
-    $(".option-show-1").click(function(e){
-      e.stopPropagation();
-    });
-  });
-});
-$(document).ready(function() {
-  $().ready(function() {
-    $('.option-btn-2').click(function(){
-      $('.option-show-2').slideToggle("fast").toggleClass("show");
-      $('.option-show-1.show').slideToggle("fast").removeClass("show");
-      $('.option-show-3.show').slideToggle("fast").removeClass("show");
-      $('.option-show-4.show').slideToggle("fast").removeClass("show");
-      $('.feat-show').css("display", "none");
-    });
+    $(".option-btn-4").click(function(){
+      $(".option-show-4").toggleClass("show");
+    })
     $(document).click(function(){
-      $('.option-show-2.show').slideToggle("fast").removeClass("show");
-    });
-    $(".option-btn-2").click(function(e){
-      e.stopPropagation();
-    });
-    $(".option-show-2").click(function(e){
-      e.stopPropagation();
-    });
-  });
-});
-$(document).ready(function() {
-  $().ready(function() {
-    $('.option-btn-3').click(function(){
-      $('.option-show-3').slideToggle("fast").toggleClass("show");
-      $('.option-show-2.show').slideToggle("fast").removeClass("show");
-      $('.option-show-1.show').slideToggle("fast").removeClass("show");
-      $('.option-show-4.show').slideToggle("fast").removeClass("show");
-      $('.feat-show').css("display", "none");
-    });
-    $(document).click(function(){
-      $('.option-show-3.show').slideToggle("fast").removeClass("show");
-    });
-    $(".option-btn-3").click(function(e){
-      e.stopPropagation();
-    });
-    $(".option-show-3").click(function(e){
-      e.stopPropagation();
-    });
-  });
-});
-$(document).ready(function() {
-  $().ready(function() {
-    $('.option-btn-4').click(function(){
-      $('.option-show-4').slideToggle("fast").toggleClass("show");
-      $('.option-show-2.show').slideToggle("fast").removeClass("show");
-      $('.option-show-3.show').slideToggle("fast").removeClass("show");
-      $('.option-show-1.show').slideToggle("fast").removeClass("show");
-      $('.feat-show').css("display", "none");
-    });
-    $(document).click(function(){
-      $('.option-show-4.show').slideToggle("fast").removeClass("show");
+      $(".option-show-4").removeClass("show");
     });
     $(".option-btn-4").click(function(e){
       e.stopPropagation();
     });
-    $(".option-show-4").click(function(e){
-      e.stopPropagation();
-    });
-    $(".others-btn-1").click(function(e){
-      $('.others-show-1').slideToggle("fast").toggleClass("show");
-      $('.others-show-2.show').slideToggle("fast").removeClass("show");
-      $('.others-show-3.show').slideToggle("fast").removeClass("show");
-    });
-    $(".others-btn-2").click(function(e){
-      $('.others-show-2').slideToggle("fast").toggleClass("show");
-      $('.others-show-1.show').slideToggle("fast").removeClass("show");
-      $('.others-show-3.show').slideToggle("fast").removeClass("show");
-    });
-    $(".others-btn-3").click(function(e){
-      $('.others-show-3').slideToggle("fast").toggleClass("show");
-      $('.others-show-2.show').slideToggle("fast").removeClass("show");
-      $('.others-show-1.show').slideToggle("fast").removeClass("show");
-    });
-  });
-});
+    $("select").click(function(){
+      $(".feat-show.show").removeClass("show");
+    })
+  })
+})
+// .dropdown-menu {
+//   display: block;
+//   padding: 0.3125rem 0;
+//   border: 0;
+//   opacity: 1;
+//   transform: scale(1);
+// MenuBar
+// Filter
+
 $(document).ready(function() {
   $().ready(function() {
     $('.responsive-filter').click(function(){

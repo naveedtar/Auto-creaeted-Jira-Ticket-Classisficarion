@@ -18,21 +18,71 @@ using System.Security.Claims;
 using HelpDesk.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using HelpDesk.Services;
+using X.PagedList;
 
 namespace IspdHelpDesk.Controllers
 {
     public class IncidentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IIncidentService _incidentService;
 
-        public IncidentController(ApplicationDbContext context)
-        {         
-            this._context = context;       
+        public IncidentController(IIncidentService incidentService)
+        {
+            this._incidentService = incidentService;
         }
-        public IActionResult Index()
-        {          
-            return View(_context.IncidentViewModel
-                .FromSqlRaw("[dbo].[IncidentMaster_GetIncidentsByAll]").ToList());
+
+
+        public IActionResult Index(IncidentSearchViewModel search, int? page)
+        {
+
+
+            _incidentService.LoadIncidentSearchViewModel(search);
+            var data = _incidentService.GetAllIncident();
+            if (search.ProjectId != null && search.ProjectId.Count > 0)
+            {
+                data = data.Where(u => search.ProjectId.Contains(u.ProjectsID));
+            }
+            if (search.Status != null && search.Status.Count > 0)
+            {
+                if (search.Status.Contains("1") && !search.Status.Contains("5"))
+                {
+                    data = data.Where(u => u.FKIncidentStatus == 1);
+                }
+
+            }
+            if (search.FormDate.HasValue && search.ToDate.HasValue)
+            {
+                data = data.Where(u => u.IncidentDate >= search.FormDate && u.IncidentDate <= search.ToDate);
+            }
+            if (search.IncidentNo != null && search.IncidentNo.Count > 0)
+            {
+                data = data.Where(u => search.IncidentNo.Contains(u.IncidentNo));
+            }
+            //if (!string.IsNullOrEmpty(search.SortBy))
+            //{
+            //    if (search.SortBy == "1")
+            //    {
+            //        data = data.OrderBy(u => u.IncidentProgress.Select(u => u.ReplyDate));
+            //    }
+            //    else
+            //    {
+            //        data = data.OrderByDescending(u => u.IncidentProgress.Select(u => u.ReplyDate));
+            //    }
+            //}
+
+            search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
+            {
+                IncidentDescription = u.IncidentDescription,
+                ProjectName = u.Project == null ? "" : u.Project.ProjectName,
+                Categories = u.IncidentCategoriesLU == null ? "" : u.IncidentCategoriesLU.Categories,
+                PriorityLevel = u.IncidentPriorityLevelsLU == null ? "" : u.IncidentPriorityLevelsLU.PriorityLevel,
+                IncidentNo = u.IncidentNo,
+                IncidentProgress = u.IncidentProgress
+
+            }).ToPagedList(page ?? 1, 2);
+
+            return View(search);
         }
     }
 }

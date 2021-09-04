@@ -25,6 +25,9 @@ namespace HelpDesk.Data
         public DbSet<UserProject> UserProjects { get; set; }
 
         public DbSet<IncidentViewModel> IncidentViewModel { get; set; }
+        public DbSet<IncidentMaster> IncidentMaster { get; set; }
+        public DbSet<IncidentCategoriesLU> IncidentCategoriesLU { get; set; }
+        public DbSet<IncidentPriorityLevelsLU> IncidentPriorityLevelsLU { get; set; }
 
 
 

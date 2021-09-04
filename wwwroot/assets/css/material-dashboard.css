@@ -4258,6 +4258,7 @@ tbody.collapse.show {
 .nav {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -13724,17 +13725,11 @@ fieldset[disabled] .form-group .form-control {
 }
 
 /* Update v-3 */
-#navbar-1.show{
-  display: block !important;
-}
-#navbar-2.show{
-  display: block !important;
-}
 .card-header .nav-item .nav-link{
   width: 100%;
 }
 .feat-show .content{
-  width: 92%;
+  width: 51%;
 }
 .feat-show h5{
   font-weight: 600;
@@ -13744,13 +13739,25 @@ fieldset[disabled] .form-group .form-control {
 li a p span.rotate{
   transform: rotate(90deg);
 }
+.sidebar-wrapper .nav .nav-item{
+  display: block;
+  width: 250px;
+  z-index: 9;
+  position: relative;
+}
 @media (min-width: 992px) {
   .sidebar-wrapper .nav .nav-item{
     display: block;
-    width: 100%;
+    width: 250px;
     z-index: 9;
     position: relative;
   }
+  .feat-show .nav-item{
+    width: auto !important;
+  }
+  /* .feat-show.block-menu{
+    display: block !important;
+  } */
   .feat-show {
     position: absolute;
     top: 0;
@@ -13762,14 +13769,20 @@ li a p span.rotate{
     background: url('../img/bg/work.jpg') no-repeat center center;
     background-size: cover;
     display: none;
+    padding-right: 70px;
+  }
+  .feat-show.block-menu{
+    display: block !important;
   }
   #navbar-1{
     display: none;
-    height: 400px;
-    overflow-x: hidden;
   }
   #navbar-2{
     display: none;
+    width: 380px;
+  }
+  #navbar-2 .nav-link{
+
   }
   .feat-show1 {
     position: absolute;
@@ -13789,7 +13802,7 @@ li a p span.rotate{
   }
 }
 .feat-show .nav-item .nav-link{
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -15298,13 +15311,23 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   background-color: #191919;
 }
 
-.sidebar .sidebar-wrapper {
+.sidebar-wrapper {
   /* position: relative; */
   height: calc(100vh - 75px);
   overflow: hidden;
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
+  transition: 0 !important;
+}
+.sidebar-wrapper.show-nav {
+  /* position: relative; */
+  height: calc(100vh - 75px);
+  overflow: hidden;
+  width: 900px !important;
+  z-index: 4;
+  padding-bottom: 30px;
+  display: block !important;
 }
 
 .sidebar .sidebar-wrapper .dropdown .dropdown-backdrop {
@@ -18785,7 +18808,7 @@ Copyright (c) 2015 Daniel Eden
 .sidebar-wrapper.ps-container {
   -ms-touch-action: auto;
   touch-action: auto;
-  overflow: visible !important;
+  overflow: hidden !important;
   -ms-overflow-style: none;
 }
 .main-panel.ps-container {
@@ -19044,6 +19067,11 @@ Copyright (c) 2015 Daniel Eden
   }
 }
 
+@media screen and (max-width: 850px) {
+  .d850{
+    flex-direction: column !important;
+  }
+}
 @media screen and (max-width: 767px) {
   .presentation-page .section-components .components-macbook {
     max-width: 350px !important;
@@ -19953,6 +19981,12 @@ Copyright (c) 2015 Daniel Eden
   .sidebar .navbar-form {
     display: none !important;
   }
+
+  .filter-segment{
+    display: inline-block;
+    padding: 0 15px;
+    width: 21%;
+  }
 }
 /* ChatBot */
 html, body {
@@ -20180,6 +20214,9 @@ html, body {
   line-height: 30px;
   padding-bottom: 7px;
 }
+.filter-bottom td{
+  text-align: right !important;
+}
 .filter-segment .dd-select{
   width: 120px;
   height: 36px;
@@ -20296,7 +20333,7 @@ html, body {
 }
 .filter .btn, .btn.btn-default {
   color: #000 !important;
-  background-color: transparent !important;
+  background-color: white !important;
   border-color: #999999;
   font-weight: 300 !important;
   box-shadow: 0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12);
@@ -20372,6 +20409,7 @@ html, body {
 .content-text{
   font-size:unset;
   display: flex;
+  justify-content: space-between;
 }
 .content-text .name{
   padding-right: 5px;
@@ -20464,6 +20502,26 @@ html, body {
     padding-bottom: 0 !important;
     font-size: 13px;
   }
+}
+.multi_select_box button{
+  padding: 15px 25px;
+}
+.multi_select .bootstrap-select>.dropdown-toggle {
+  width: 80%;
+}
+.multi_select .bootstrap-select .dropdown-menu {
+  min-width: 80%;
+}
+.dropdown-menu .inner .dropdown-menu {
+  display: block;
+  padding: 0.3125rem 0;
+  border: 0;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 /* Filter page */
 /*# sourceMappingURL=dashboard-free.css.map */

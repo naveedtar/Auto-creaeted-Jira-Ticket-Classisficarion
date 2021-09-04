@@ -75,6 +75,7 @@ namespace HelpDesk
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IIncidentService, IncidentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
