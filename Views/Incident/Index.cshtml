@@ -94,7 +94,7 @@
 
                                                     <span class="e-datewidget e-widget e-ntouch e-valid" aria-invalid="false">
                                                         <span class="e-in-wrap e-box e-padding">
-                                                            <input id="FormDate" name="FormDate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" placeholder="Select date" >
+                                                            <input asp-for="FormDate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" placeholder="Select date" />
                                                             <span id="startdate-img" class="e-select" style="display: block;"><span class="e-icon e-calendar" aria-label="Select"></span></span>
                                                         </span>
                                                     </span>
@@ -109,7 +109,7 @@
 
                                                     <span class="e-datewidget e-widget e-ntouch e-valid" aria-invalid="false">
                                                         <span class="e-in-wrap e-box e-padding">
-                                                            <input id="ToDate" name="ToDate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" placeholder="Select date">
+                                                            <input asp-for="ToDate" type="date" class="e-datepicker e-js e-input" tabindex="0" aria-atomic="true" aria-live="assertive" placeholder="Select date" onchange="onchangeFilter()" />
                                                             <span id="enddate-img" class="e-select" style="display: block;"><span class="e-icon e-calendar" aria-label="Select"></span></span>
                                                         </span>
                                                     </span>
@@ -141,6 +141,7 @@
             </div>
             <div class="card-body">
                 <div class="incident-result">
+
                     @foreach (var item in Model.IncidentViewModels)
                     {
                         <div class="row px-2 incidents">
@@ -212,7 +213,7 @@
                             PageClasses = new string[] { "page-link" }
                         };
                     }
-                    @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("Index", new { Page = page, search = Model }), pagedListRenderOptions)
+                    @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("Index", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
                     @*<ul class="pagination justify-content-end">
                             <li class="page-item">
                                 <a class="page-link" href="javascript:;" tabindex="-1">Previous</a>

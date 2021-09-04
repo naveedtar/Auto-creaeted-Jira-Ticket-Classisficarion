@@ -45,11 +45,7 @@ namespace IspdHelpDesk.Controllers
             }
             if (search.Status != null && search.Status.Count > 0)
             {
-                if (search.Status.Contains("1") && !search.Status.Contains("5"))
-                {
-                    data = data.Where(u => u.FKIncidentStatus == 1);
-                }
-
+                data = data.Where(u => search.Status.Contains(u.FKIncidentStatus));
             }
             if (search.FormDate.HasValue && search.ToDate.HasValue)
             {
@@ -59,17 +55,17 @@ namespace IspdHelpDesk.Controllers
             {
                 data = data.Where(u => search.IncidentNo.Contains(u.IncidentNo));
             }
-            //if (!string.IsNullOrEmpty(search.SortBy))
-            //{
-            //    if (search.SortBy == "1")
-            //    {
-            //        data = data.OrderBy(u => u.IncidentProgress.Select(u => u.ReplyDate));
-            //    }
-            //    else
-            //    {
-            //        data = data.OrderByDescending(u => u.IncidentProgress.Select(u => u.ReplyDate));
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(search.SortBy))
+            {
+                if (search.SortBy == "1")
+                {
+                    data = data.OrderBy(u => u.IncidentProgress.Min(u => u.ReplyDate));
+                }
+                else
+                {
+                    data = data.OrderByDescending(u => u.IncidentProgress.Max(u => u.ReplyDate));
+                }
+            }
 
             search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
             {
