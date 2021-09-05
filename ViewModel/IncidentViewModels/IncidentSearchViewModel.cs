@@ -28,6 +28,7 @@ namespace HelpDesk.ViewModel
         public string SortBy { get; set; }
 
         public bool Submitted { get; set; }
+        public int? Page { get; set; }
 
 
 

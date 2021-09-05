@@ -42,7 +42,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <form asp-action="Index" role="form" class="filter filter-form">
+                <form asp-action="_FilterData" data-ajax="true" data-ajax-method="post" data-ajax-failure="failed"  data-ajax-update="#updatedDiv" class="filter-form filter">
+
 
                     <input type="hidden" id="Submitted" name="Submitted" value="@Model.Submitted" />
                     <div class="filter-segment" id="sort-filter">
@@ -139,103 +140,29 @@
                     <h4 class="card-title mr-3" style="margin-bottom: 0 !important; padding: 0 !important;">INCIDENTS</h4> <i class="fa fa-filter" aria-hidden="true" style="font-size: larger;"></i>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="incident-result">
 
-                    @foreach (var item in Model.IncidentViewModels)
-                    {
-                        <div class="row px-2 incidents">
-                            <div class="col-lg-8">
-                                <div class="content-items">
-                                    <a href="#" style="color: unset;">
-                                        <div class="content-header"><h5>@item.IncidentDescription</h5></div>
-                                        <div class="content-text">
-                                            <div class="name"><span>Project Name</span>: @item.ProjectName</div>
-                                            <div class="name"> | </div>
-                                            <div class="name"><span>Category</span>: @item.Categories</div>
-                                            <div class="name"> | </div>
-                                            <div class="name"><span>Priority</span>: @item.PriorityLevel</div>
-                                        </div>
-                                        <div class="content-creator">
-                                            @{
-                                                var userId = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1)?.FromUserId;
-                                                var createdBy = (await userManager.FindByIdAsync(userId))?.Name;
-                                                var createdDate = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1).ReplyDate;
-                                                var repliedByUserId = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.FromUserId;
-                                                var LatestRepliedBy = (await userManager.FindByIdAsync(userId))?.Name;
-                                                var LatestRepliedByDate = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.ReplyDate;
-                                            }
-                                            <div><span class="inner-grid-list">Created by</span>: @createdBy on  <b>@createdDate.ToString("MM/dd/yyyy hh:mm tt")</b></div>
+            <div id="updatedDiv">
 
 
-                                            @if (String.IsNullOrEmpty(LatestRepliedBy))
-                                            {
-                                                @string.Empty
-                                            }
-                                            else
-                                            {
-                                                <div><span class="inner-grid-list">Last replied by</span>: @LatestRepliedBy on  <b>@LatestRepliedByDate.Value.ToString("MM/dd/yyyy hh:mm tt")</b></div>
-                                            }
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="content-info">
-                                    <p style="font-size: 1.0rem; font-weight: 300; margin-bottom: 0 !important;">@item.IncidentNo</p>
-                                    @if (item.IncidentStatus == "OPEN")
-                                    {
-                                        <h2 class="open-incidents">@item.IncidentStatus</h2> }
-                                    else
-                                    {
-                                        <h2 class="close-incidents">@item.IncidentStatus</h2>}
-
-                                    <a href="#" style="font-size: 14px;color: #0555cd;">View Recent Activity</a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                </div>
-            </div>
-            <div class="bd-example" data-example-id="">
-                <nav aria-label="Page navigation example">
-                    @{
-                        var pagedListRenderOptions = new PagedListRenderOptions
-                        {
-
-                            LinkToFirstPageFormat = "1",
-                            LinkToPreviousPageFormat = "Previous",
-                            LinkToNextPageFormat = "Next",
-                            MaximumPageNumbersToDisplay = 2,
-                            UlElementClasses = new string[] { "pagination justify-content-end" },
-                            LiElementClasses = new string[] { "page-item" },
-                            PageClasses = new string[] { "page-link" }
-                        };
-                    }
-                    @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("Index", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
-                    @*<ul class="pagination justify-content-end">
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:;" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:;">2</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:;">Next</a>
-                            </li>
-                        </ul>*@
-                </nav>
+                <partial name="_FilterData" model="Model" />
+              
             </div>
         </div>
     </div>
 </div>
-<script>
-    function onchangeFilter() {
-        $(".filter-form").submit();
+
+@section scripts{
+    <script src="~/assets/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        failed = function (xhr) {
+            alert(`Status: {xhr.status}, Status Text: {xhr.statusText}`);
+        };
+       
+        function onchangeFilter() {
+            $(".filter-form").submit();
 
 
-    }
+        }
+    </script>
+}
 
-
-</script>

@@ -39,6 +39,22 @@ namespace IspdHelpDesk.Controllers
 
             _incidentService.LoadIncidentSearchViewModel(search);
             var data = _incidentService.GetAllIncident();
+            search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
+            {
+                IncidentDescription = u.IncidentDescription,
+                ProjectName = u.Project == null ? "" : u.Project.ProjectName,
+                Categories = u.IncidentCategoriesLU == null ? "" : u.IncidentCategoriesLU.Categories,
+                PriorityLevel = u.IncidentPriorityLevelsLU == null ? "" : u.IncidentPriorityLevelsLU.PriorityLevel,
+                IncidentNo = u.IncidentNo,
+                IncidentProgress = u.IncidentProgress
+
+            }).ToPagedList(page ?? 1, 2);
+            return View(search);
+        }
+
+        public IActionResult _FilterData(IncidentSearchViewModel search)
+        {
+            var data = _incidentService.GetAllIncident();
             if (search.ProjectId != null && search.ProjectId.Count > 0)
             {
                 data = data.Where(u => search.ProjectId.Contains(u.ProjectsID));
@@ -66,7 +82,6 @@ namespace IspdHelpDesk.Controllers
                     data = data.OrderByDescending(u => u.IncidentProgress.Max(u => u.ReplyDate));
                 }
             }
-
             search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
             {
                 IncidentDescription = u.IncidentDescription,
@@ -76,9 +91,9 @@ namespace IspdHelpDesk.Controllers
                 IncidentNo = u.IncidentNo,
                 IncidentProgress = u.IncidentProgress
 
-            }).ToPagedList(page ?? 1, 2);
+            }).ToPagedList(search.Page ?? 1, 2);
 
-            return View(search);
+            return PartialView(search);
         }
     }
 }

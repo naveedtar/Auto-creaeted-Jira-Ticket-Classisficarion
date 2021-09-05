@@ -1,0 +1,103 @@
+﻿@model HelpDesk.ViewModel.IncidentSearchViewModel
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Core.Common;
+@inject Microsoft.AspNetCore.Identity.UserManager<HelpDesk.Model.ApplicationUser> userManager
+
+
+
+<div class="card-body">
+    <div class="incident-result">
+
+        @foreach (var item in Model.IncidentViewModels)
+        {
+            <div class="row px-2 incidents">
+                <div class="col-lg-8">
+                    <div class="content-items">
+                        <a href="#" style="color: unset;">
+                            <div class="content-header"><h5>@item.IncidentDescription</h5></div>
+                            <div class="content-text">
+                                <div class="name"><span>Project Name</span>: @item.ProjectName</div>
+                                <div class="name"> | </div>
+                                <div class="name"><span>Category</span>: @item.Categories</div>
+                                <div class="name"> | </div>
+                                <div class="name"><span>Priority</span>: @item.PriorityLevel</div>
+                            </div>
+                            <div class="content-creator">
+                                @{
+                                    var userId = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1)?.FromUserId;
+                                    var createdBy = (await userManager.FindByIdAsync(userId))?.Name;
+                                    var createdDate = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1).ReplyDate;
+                                    var repliedByUserId = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.FromUserId;
+                                    var LatestRepliedBy = (await userManager.FindByIdAsync(userId))?.Name;
+                                    var LatestRepliedByDate = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.ReplyDate;
+                                }
+                                <div><span class="inner-grid-list">Created by</span>: @createdBy on  <b>@createdDate.ToString("MM/dd/yyyy hh:mm tt")</b></div>
+
+
+                                @if (String.IsNullOrEmpty(LatestRepliedBy))
+                                {
+                                    @string.Empty
+                                }
+                                else
+                                {
+                                    <div><span class="inner-grid-list">Last replied by</span>: @LatestRepliedBy on  <b>@LatestRepliedByDate.Value.ToString("MM/dd/yyyy hh:mm tt")</b></div>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="content-info">
+                        <p style="font-size: 1.0rem; font-weight: 300; margin-bottom: 0 !important;">@item.IncidentNo</p>
+                        @if (item.IncidentStatus == "OPEN")
+                        {
+                            <h2 class="open-incidents">@item.IncidentStatus</h2> }
+                        else
+                        {
+                            <h2 class="close-incidents">@item.IncidentStatus</h2>}
+
+                        <a href="#" style="font-size: 14px;color: #0555cd;">View Recent Activity</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="bd-example" data-example-id="">
+    <nav aria-label="Page navigation example">
+        @{
+            var pagedListRenderOptions = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+            {
+
+                LinkToFirstPageFormat = "1",
+                LinkToPreviousPageFormat = "Previous",
+                LinkToNextPageFormat = "Next",
+                MaximumPageNumbersToDisplay = 2,
+                UlElementClasses = new string[] { "pagination justify-content-end" },
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+            },
+            new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "Post",
+                UpdateTargetId = "updatedDiv",
+            });
+        }
+                @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("_FilterData", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
+        @*<ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link" href="javascript:;" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:;">2</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:;">Next</a>
+                </li>
+            </ul>*@
+    </nav>
+</div>
+
