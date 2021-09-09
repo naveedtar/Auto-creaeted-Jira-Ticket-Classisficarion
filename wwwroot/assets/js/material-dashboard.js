@@ -911,3 +911,9 @@ $(function() {
   })
   
 })
+
+// loader
+$(window).on("load",function(){
+  $("#loader-container").fadeOut(2000);
+});
+// loader

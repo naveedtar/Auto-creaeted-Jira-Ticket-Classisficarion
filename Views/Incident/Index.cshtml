@@ -42,28 +42,35 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary">
-                <form asp-action="_FilterData" data-ajax="true" data-ajax-method="post" data-ajax-failure="failed"  data-ajax-update="#updatedDiv" class="filter-form filter">
+                <form asp-action="_FilterData" data-ajax="true" data-ajax-method="post" data-ajax-failure="failed" data-ajax-begin="beginform" data-ajax-complete="completeform"  data-ajax-success="successform"  data-ajax-update="#updatedDiv" class="filter-form filter" data-ajax-loading="loader-container">
 
 
                     <input type="hidden" id="Submitted" name="Submitted" value="@Model.Submitted" />
                     <div class="filter-segment" id="sort-filter">
                         <h4 class="card-title">Sort</h4>
                         <div class="multi_select">
-                            <select asp-for="SortBy" asp-items="Model.SortByDD" class="selectpicker" aria-label="Default select example" data-live-search="false" title="Sort By" onchange="onchangeFilter()"></select>
+                            <select asp-for="SortBy" asp-items="Model.SortByDD" class="selectpicker" aria-label="Default select example" data-live-search="false" title="Sort By" onchange="onchangeFilter()">
+                                <option>Sort BY</option>
+                            </select>
 
                         </div>
                     </div>
                     <div class="filter-segment" id="sort-filter">
                         <h4 class="card-title">Project</h4>
                         <div class="multi_select">
-                            <select asp-for="ProjectId" asp-items="Model.ProjectsDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Project Name" onchange="onchangeFilter()"></select>
+                            <select asp-for="ProjectId" asp-items="Model.ProjectsDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Project Name" onchange="onchangeFilter()">
+                                <option>Project Name</option>
+                            </select>
 
                         </div>
                     </div>
                     <div class="filter-segment" id="sort-filter">
                         <h4 class="card-title">Status</h4>
                         <div class="multi_select">
-                            <select asp-for="Status" asp-items="Model.StatusDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Status" onchange="onchangeFilter()"></select>
+                            <select asp-for="Status" asp-items="Model.StatusDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Status" onchange="onchangeFilter()">
+                                <option>Status</option>
+
+                            </select>
 
                         </div>
                     </div>
@@ -157,7 +164,18 @@
         failed = function (xhr) {
             alert(`Status: {xhr.status}, Status Text: {xhr.statusText}`);
         };
-       
+        beginform = function (xhr) {
+            debugger;
+            $("#loader-container").show();
+        };
+        completeform=function(xhr) {
+           
+            $("#loader-container").hide();
+        };
+        successform = function (xhr) {
+
+         
+        };
         function onchangeFilter() {
             $(".filter-form").submit();
 

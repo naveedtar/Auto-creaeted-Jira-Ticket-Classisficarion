@@ -29,12 +29,13 @@ namespace HelpDesk.ViewModel
         public string CreatedBy { get; set; }
         public Nullable<DateTime> CreatedDate { get; set; }
         public string CreatedDateDisplay { get; set; }
-        public Nullable<int> IncidentStatusLUId { get; set; }
+        public int IncidentStatusLUId { get; set; }
         public string LatestRepliedBy { get; set; }
         public Nullable<DateTime> LatestRepliedDate { get; set; }
         public string LatestRepliedDateDisplay { get; set; }
         public Nullable<int> LatestIncidentStatusLUId { get; set; }
         public string IncidentStatus { get; set; }
+        public int ProjectsID { get; set; }
 
     }
 }

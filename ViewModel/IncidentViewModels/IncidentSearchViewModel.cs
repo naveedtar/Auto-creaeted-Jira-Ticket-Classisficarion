@@ -9,7 +9,7 @@ namespace HelpDesk.ViewModel
 {
     public class IncidentSearchViewModel
     {
-        public IPagedList<IncidentMasterViewModel> IncidentViewModels { get; set; }
+        public IPagedList<IncidentViewModel> IncidentViewModels { get; set; }
 
         public List<SelectListItem> ProjectsDD { get; set; }
 

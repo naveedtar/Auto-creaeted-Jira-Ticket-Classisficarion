@@ -22,27 +22,21 @@
                                 <div class="name"><span>Category</span>: @item.Categories</div>
                                 <div class="name"> | </div>
                                 <div class="name"><span>Priority</span>: @item.PriorityLevel</div>
+                                <div class="name"> | </div>
+                                <div class="name"><span>Date Occured</span>: @item.IncidentDateDisplay</div>
+                                <div class="name"> | </div>
+                                <div class="name"><span>Period</span>: @item.HowLong</div>
                             </div>
                             <div class="content-creator">
-                                @{
-                                    var userId = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1)?.FromUserId;
-                                    var createdBy = (await userManager.FindByIdAsync(userId))?.Name;
-                                    var createdDate = item.IncidentProgress.FirstOrDefault(u => u.IncidentStatusLUId == 1).ReplyDate;
-                                    var repliedByUserId = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.FromUserId;
-                                    var LatestRepliedBy = (await userManager.FindByIdAsync(userId))?.Name;
-                                    var LatestRepliedByDate = item.IncidentProgress.OrderByDescending(u => u.ReplyDate).FirstOrDefault()?.ReplyDate;
-                                }
-                                <div><span class="inner-grid-list">Created by</span>: @createdBy on  <b>@createdDate.ToString("MM/dd/yyyy hh:mm tt")</b></div>
+                                <div><span class="inner-grid-list">Created by</span>: @item.CreatedBy on  <b>@item.CreatedDateDisplay</b></div>
 
 
-                                @if (String.IsNullOrEmpty(LatestRepliedBy))
+                                @if (String.IsNullOrEmpty(@item.LatestRepliedBy))
                                 {
-                                    @string.Empty
-                                }
+                                    @String.Empty }
                                 else
                                 {
-                                    <div><span class="inner-grid-list">Last replied by</span>: @LatestRepliedBy on  <b>@LatestRepliedByDate.Value.ToString("MM/dd/yyyy hh:mm tt")</b></div>
-                                }
+                                    <div><span class="inner-grid-list">Last replied by</span>: @item.LatestRepliedBy on  <b>@item.LatestRepliedDateDisplay</b></div>}
                             </div>
                         </a>
                     </div>
@@ -55,7 +49,8 @@
                             <h2 class="open-incidents">@item.IncidentStatus</h2> }
                         else
                         {
-                            <h2 class="close-incidents">@item.IncidentStatus</h2>}
+                            <h2 class="close-incidents">@item.IncidentStatus</h2>
+                        }
 
                         <a href="#" style="font-size: 14px;color: #0555cd;">View Recent Activity</a>
                     </div>
@@ -63,10 +58,21 @@
             </div>
         }
 
+
     </div>
 </div>
 <div class="bd-example" data-example-id="">
+
+    
     <nav aria-label="Page navigation example">
+
+
+
+
+
+
+
+
         @{
             var pagedListRenderOptions = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
             {
@@ -86,18 +92,10 @@
                 UpdateTargetId = "updatedDiv",
             });
         }
-                @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("_FilterData", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
-        @*<ul class="pagination justify-content-end">
-                <li class="page-item">
-                    <a class="page-link" href="javascript:;" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                <li class="page-item"><a class="page-link" href="javascript:;">2</a></li>
-                <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:;">Next</a>
-                </li>
-            </ul>*@
+
+        @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("_FilterData", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions) <h5 style="margin-left:1% !important">Showing @Model.IncidentViewModels.PageNumber to @(Model.IncidentViewModels.TotalItemCount/Model.IncidentViewModels.PageSize) of @Model.IncidentViewModels.TotalItemCount entries</h5>
+
+
     </nav>
 </div>
 

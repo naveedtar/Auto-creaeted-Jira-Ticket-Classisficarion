@@ -16,7 +16,7 @@ namespace HelpDesk.Services
 
         IQueryable<IncidentMaster> GetAllIncident();
         IncidentSearchViewModel LoadIncidentSearchViewModel(IncidentSearchViewModel model);
-
+        IQueryable<IncidentViewModel> GetIncidentData();
     }
     public class IncidentService : IIncidentService
     {
@@ -33,7 +33,17 @@ namespace HelpDesk.Services
            
 
 
+        } 
+        public IQueryable<IncidentViewModel> GetIncidentData()
+        {
+           return  _context.IncidentViewModel
+                 .FromSqlRaw("[dbo].[IncidentMaster_GetIncidentsByAll]").ToList().AsQueryable();
+
+
+
+
         }
+
         public IncidentSearchViewModel LoadIncidentSearchViewModel(IncidentSearchViewModel model)
         {
             model.SortByDD = new List<SelectListItem>();

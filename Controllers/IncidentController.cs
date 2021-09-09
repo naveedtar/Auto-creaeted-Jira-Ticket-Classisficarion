@@ -27,6 +27,8 @@ namespace IspdHelpDesk.Controllers
     {
         private readonly IIncidentService _incidentService;
 
+
+
         public IncidentController(IIncidentService incidentService)
         {
             this._incidentService = incidentService;
@@ -38,30 +40,21 @@ namespace IspdHelpDesk.Controllers
 
 
             _incidentService.LoadIncidentSearchViewModel(search);
-            var data = _incidentService.GetAllIncident();
-            search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
-            {
-                IncidentDescription = u.IncidentDescription,
-                ProjectName = u.Project == null ? "" : u.Project.ProjectName,
-                Categories = u.IncidentCategoriesLU == null ? "" : u.IncidentCategoriesLU.Categories,
-                PriorityLevel = u.IncidentPriorityLevelsLU == null ? "" : u.IncidentPriorityLevelsLU.PriorityLevel,
-                IncidentNo = u.IncidentNo,
-                IncidentProgress = u.IncidentProgress
-
-            }).ToPagedList(page ?? 1, 2);
+            var data = _incidentService.GetIncidentData();
+            search.IncidentViewModels = data.ToPagedList(page ?? 1, 2);
             return View(search);
         }
 
         public IActionResult _FilterData(IncidentSearchViewModel search)
         {
-            var data = _incidentService.GetAllIncident();
+            var data = _incidentService.GetIncidentData();
             if (search.ProjectId != null && search.ProjectId.Count > 0)
             {
                 data = data.Where(u => search.ProjectId.Contains(u.ProjectsID));
             }
             if (search.Status != null && search.Status.Count > 0)
             {
-                data = data.Where(u => search.Status.Contains(u.FKIncidentStatus));
+                data = data.Where(u => search.Status.Contains(u.IncidentStatusLUId));
             }
             if (search.FormDate.HasValue && search.ToDate.HasValue)
             {
@@ -75,23 +68,14 @@ namespace IspdHelpDesk.Controllers
             {
                 if (search.SortBy == "1")
                 {
-                    data = data.OrderBy(u => u.IncidentProgress.Min(u => u.ReplyDate));
+                    data = data.OrderBy(u => u.CreatedDate);
                 }
                 else
                 {
-                    data = data.OrderByDescending(u => u.IncidentProgress.Max(u => u.ReplyDate));
+                    data = data.OrderByDescending(u => u.LatestRepliedDate);
                 }
             }
-            search.IncidentViewModels = data.Select(u => new IncidentMasterViewModel
-            {
-                IncidentDescription = u.IncidentDescription,
-                ProjectName = u.Project == null ? "" : u.Project.ProjectName,
-                Categories = u.IncidentCategoriesLU == null ? "" : u.IncidentCategoriesLU.Categories,
-                PriorityLevel = u.IncidentPriorityLevelsLU == null ? "" : u.IncidentPriorityLevelsLU.PriorityLevel,
-                IncidentNo = u.IncidentNo,
-                IncidentProgress = u.IncidentProgress
-
-            }).ToPagedList(search.Page ?? 1, 2);
+            search.IncidentViewModels = data.ToPagedList(search.Page ?? 1, 2);
 
             return PartialView(search);
         }
