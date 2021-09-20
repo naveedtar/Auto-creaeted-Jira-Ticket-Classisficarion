@@ -24,7 +24,7 @@ namespace HelpDesk.ViewModel
 
         public List<string> IncidentNo { get; set; }
 
-        public List<int> Status { get; set; }
+        public List<int?> Status { get; set; }
         public string SortBy { get; set; }
 
         public bool Submitted { get; set; }

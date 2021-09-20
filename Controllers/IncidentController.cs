@@ -54,7 +54,7 @@ namespace IspdHelpDesk.Controllers
             }
             if (search.Status != null && search.Status.Count > 0)
             {
-                data = data.Where(u => search.Status.Contains(u.IncidentStatusLUId));
+                data = data.Where(u => search.Status.Contains(u.LatestIncidentStatusLUId));
             }
             if (search.FormDate.HasValue && search.ToDate.HasValue)
             {
