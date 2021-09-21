@@ -7,8 +7,11 @@
 
 
 <div class="card-body">
-    <div class="incident-result">
 
+    <div class="incident-result">
+        <div class="loader-specific">
+            <div class="loader-smaller"></div>
+        </div>
         @foreach (var item in Model.IncidentViewModels)
         {
             <div class="row px-2 incidents">
@@ -28,15 +31,16 @@
                                 <div class="name"><span>Period</span>: @item.HowLong</div>
                             </div>
                             <div class="content-creator">
-                                <div><span class="inner-grid-list">Created by</span>: @item.CreatedBy on  <b>@item.CreatedDateDisplay</b></div>
+                                <div><span class="inner-grid-list">Created by</span>: @item.CreatedBy on <b>@item.CreatedDateDisplay</b></div>
 
 
                                 @if (String.IsNullOrEmpty(@item.LatestRepliedBy))
                                 {
-                                    @String.Empty }
+                                    @String.Empty
+                                }
                                 else
                                 {
-                                    <div><span class="inner-grid-list">Last replied by</span>: @item.LatestRepliedBy on  <b>@item.LatestRepliedDateDisplay</b></div>}
+                                    <div><span class="inner-grid-list">Last replied by</span>: @item.LatestRepliedBy on <b>@item.LatestRepliedDateDisplay</b></div>}
                             </div>
                         </a>
                     </div>
@@ -46,13 +50,14 @@
                         <p style="font-size: 1.0rem; font-weight: 300; margin-bottom: 0 !important;">@item.IncidentNo</p>
                         @if (item.IncidentStatus == "OPEN")
                         {
-                            <h2 class="open-incidents">@item.IncidentStatus</h2> }
+                            <h2 class="open-incidents">@item.IncidentStatus</h2>
+                        }
                         else
                         {
                             <h2 class="close-incidents">@item.IncidentStatus</h2>
                         }
 
-                        <a href="#" style="font-size: 14px;color: #0555cd;">View Recent Activity</a>
+                        <a href="#" style="font-size: 14px; color: #0555cd;">View Recent Activity</a>
                     </div>
                 </div>
             </div>

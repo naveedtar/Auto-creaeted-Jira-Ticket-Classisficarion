@@ -1,24 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using HelpDesk.Model;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http.Headers;
-using System.IO;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using HelpDesk.ViewModel;
-using System.Security.Claims;
-using HelpDesk.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
 using HelpDesk.Services;
+using IspdHelpDesk.Services;
 using X.PagedList;
 
 namespace IspdHelpDesk.Controllers
@@ -47,16 +31,17 @@ namespace IspdHelpDesk.Controllers
 
         public IActionResult _FilterData(IncidentSearchViewModel search)
         {
+
             var data = _incidentService.GetIncidentData();
-            if (search.ProjectId != null && search.ProjectId.Count > 0)
+            if (search.ProjectId is { Count: > 0 })
             {
                 data = data.Where(u => search.ProjectId.Contains(u.ProjectsID));
             }
-            if (search.Status != null && search.Status.Count > 0)
+            if (search.Status is { Count: > 0 })
             {
                 if (search.Status.Count < 2)
                 {
-                    if (search.Status.Any(u => u.HasValue && u.Value == 1))
+                    if (search.Status.Any(u => u is 1))
                     {
                         data = data.Where(u => u.LatestIncidentStatusLUId != 5);
                     }
@@ -68,6 +53,8 @@ namespace IspdHelpDesk.Controllers
             }
             if (search.FormDate.HasValue && search.ToDate.HasValue)
             {
+
+                search.ToDate = search.ToDate.Value.AddDays(1);
                 data = data.Where(u => u.IncidentDate >= search.FormDate && u.IncidentDate <= search.ToDate);
             }
             if (search.IncidentNo != null && search.IncidentNo.Count > 0)
@@ -76,18 +63,12 @@ namespace IspdHelpDesk.Controllers
             }
             if (!string.IsNullOrEmpty(search.SortBy))
             {
-                if (search.SortBy == "1")
-                {
-                    data = data.OrderBy(u => u.CreatedDate);
-                }
-                else
-                {
-                    data = data.OrderByDescending(u => u.LatestRepliedBy);
-                }
+                data = search.SortBy == "1" ? data.OrderBy(u => u.CreatedDate) : data.Where(u=> u.LatestRepliedBy != null).OrderByDescending(u => u.LatestRepliedBy);
             }
             search.IncidentViewModels = data.ToPagedList(search.Page ?? 1, 2);
 
             return PartialView(search);
         }
+
     }
 }

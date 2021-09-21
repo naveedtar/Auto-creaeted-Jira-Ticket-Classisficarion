@@ -914,6 +914,16 @@ $(function() {
 
 // loader
 $(window).on("load",function(){
-  $("#loader-container").fadeOut(2000);
+  $(".loader-container").fadeOut(1000);
 });
+
+$(".selectpicker").on('change',function(){
+  $(".loader-specific").addClass("loading");
+  setTimeout(function() {
+    $(".loader-specific").removeClass('loading');
+  }, 1000)
+})
+
+
+
 // loader

@@ -1,14 +1,12 @@
-﻿using HelpDesk.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HelpDesk.Data;
 using HelpDesk.Models;
 using HelpDesk.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HelpDesk.Services
+namespace IspdHelpDesk.Services
 {
 
     public interface IIncidentService
@@ -17,6 +15,8 @@ namespace HelpDesk.Services
         IQueryable<IncidentMaster> GetAllIncident();
         IncidentSearchViewModel LoadIncidentSearchViewModel(IncidentSearchViewModel model);
         IQueryable<IncidentViewModel> GetIncidentData();
+        
+
     }
     public class IncidentService : IIncidentService
     {
@@ -43,6 +43,8 @@ namespace HelpDesk.Services
 
 
         }
+
+       
 
         public IncidentSearchViewModel LoadIncidentSearchViewModel(IncidentSearchViewModel model)
         {
