@@ -50,7 +50,7 @@
                         <h4 class="card-title">Sort</h4>
                         <div class="multi_select">
                             <select asp-for="SortBy" asp-items="Model.SortByDD" class="selectpicker" aria-label="Default select example" data-live-search="false" title="Sort By" onchange="onchangeFilter()">
-                                <option>Sort BY</option>
+                                <option disabled>Sort BY</option>
                             </select>
 
                         </div>
@@ -59,7 +59,7 @@
                         <h4 class="card-title">Project</h4>
                         <div class="multi_select">
                             <select asp-for="ProjectId" asp-items="Model.ProjectsDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Project Name" onchange="onchangeFilter()">
-                                <option>Project Name</option>
+                                <option disabled>Project Name</option>
                             </select>
 
                         </div>
@@ -68,7 +68,7 @@
                         <h4 class="card-title">Status</h4>
                         <div class="multi_select">
                             <select asp-for="Status" asp-items="Model.StatusDD" multiple class="selectpicker" aria-label="Default select example" data-live-search="false" title="Status" onchange="onchangeFilter()">
-                                <option>Status</option>
+                                <option disabled>Status</option>
 
                             </select>
 

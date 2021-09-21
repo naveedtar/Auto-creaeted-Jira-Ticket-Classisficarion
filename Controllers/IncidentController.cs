@@ -54,7 +54,17 @@ namespace IspdHelpDesk.Controllers
             }
             if (search.Status != null && search.Status.Count > 0)
             {
-                data = data.Where(u => search.Status.Contains(u.LatestIncidentStatusLUId));
+                if (search.Status.Count < 2)
+                {
+                    if (search.Status.Any(u => u.HasValue && u.Value == 1))
+                    {
+                        data = data.Where(u => u.LatestIncidentStatusLUId != 5);
+                    }
+                    else
+                    {
+                        data = data.Where(u => search.Status.Contains(u.LatestIncidentStatusLUId));
+                    }
+                }
             }
             if (search.FormDate.HasValue && search.ToDate.HasValue)
             {
@@ -72,7 +82,7 @@ namespace IspdHelpDesk.Controllers
                 }
                 else
                 {
-                    data = data.OrderByDescending(u => u.LatestRepliedDate);
+                    data = data.OrderByDescending(u => u.LatestRepliedBy);
                 }
             }
             search.IncidentViewModels = data.ToPagedList(search.Page ?? 1, 2);

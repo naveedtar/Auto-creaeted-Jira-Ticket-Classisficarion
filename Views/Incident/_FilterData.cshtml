@@ -93,7 +93,7 @@
             });
         }
 
-        @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("_FilterData", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FromDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
+        @Html.PagedListPager(Model.IncidentViewModels, page => Url.Action("_FilterData", new { Page = page, SortBy = Model.SortBy, ProjectId = Model.ProjectId, IncidentNo = Model.IncidentNo, Status = Model.Status, FormDate = Model.FormDate, ToDate = Model.ToDate }), pagedListRenderOptions)
         <h5 style="margin-left:1% !important">Showing page @Model.IncidentViewModels.PageNumber of @(Model.IncidentViewModels.PageCount) of  @Model.IncidentViewModels.TotalItemCount Total entries</h5>
 
 
