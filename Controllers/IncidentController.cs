@@ -41,7 +41,7 @@ namespace IspdHelpDesk.Controllers
             {
                 if (search.Status.Count < 2)
                 {
-                    if (search.Status.Any(u => u is 1))
+                    if (search.Status.Count < 2&& search.Status.Any(u => u is 1))
                     {
                         data = data.Where(u => u.LatestIncidentStatusLUId != 5);
                     }
@@ -61,9 +61,20 @@ namespace IspdHelpDesk.Controllers
             {
                 data = data.Where(u => search.IncidentNo.Contains(u.IncidentNo));
             }
-            if (!string.IsNullOrEmpty(search.SortBy))
+            if (search.SortBy is { Count: > 0 })
             {
-                data = search.SortBy == "1" ? data.OrderBy(u => u.CreatedDate) : data.Where(u=> u.LatestRepliedBy != null).OrderByDescending(u => u.LatestRepliedBy);
+                if (search.SortBy.Count < 2)
+                {
+                    if (search.SortBy.Any(u => u is "1"))
+                    {
+                        data = data.OrderBy(u => u.CreatedDate);
+                    }
+                    else
+                    {
+                        data = data.Where(u => u.LatestRepliedBy != null).OrderByDescending(u => u.LatestRepliedBy);
+
+                    }
+                }
             }
             search.IncidentViewModels = data.ToPagedList(search.Page ?? 1, 2);
 
