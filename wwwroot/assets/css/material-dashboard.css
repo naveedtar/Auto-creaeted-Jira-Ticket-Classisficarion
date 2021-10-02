@@ -20,7 +20,6 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
 }
 
 html {
@@ -13729,7 +13728,7 @@ fieldset[disabled] .form-group .form-control {
   width: 100%;
 }
 .feat-show .content{
-  width: 51%;
+  width: 100%;
 }
 .feat-show h5{
   font-weight: 600;
